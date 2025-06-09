@@ -6,7 +6,16 @@ require_once __DIR__ . '/../layout/cards.php';
     <div class="row justify-content-center">
         <!-- Post principal -->
         <?php if (isset($post)): ?>
-        <?php cardPost($post['id_post'], $post['nickname'], $post['conteudo'], $post['data_postagem'], $post['anexo'], $post['likes'] ?? 0, $_SESSION['id_usuario'] == $post['id_usuario']); ?>
+        <?php cardPost(
+            $post['id_post'], 
+            $post['id_usuario'], 
+            $post['nickname'], 
+            $post['conteudo'], 
+            $post['data_postagem'], 
+            $post['anexo'], 
+            $post['likes'] ?? 0, 
+            $_SESSION['id_usuario'] == $post['id_usuario']
+        ); ?>
         <?php endif; ?>
     </div>
     <div class="row justify-content-center mt-4">

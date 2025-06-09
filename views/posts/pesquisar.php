@@ -49,6 +49,7 @@ include __DIR__ . '/../../views/layout/cards.php';
                 <?php if (count($posts) > 0): ?>
                 <?php foreach ($posts as $post) cardPost(
                         $post['id_post'], 
+                        $post['id_usuario'],
                         $post['nickname'], 
                         $post['conteudo'], 
                         $post['data_postagem'], 

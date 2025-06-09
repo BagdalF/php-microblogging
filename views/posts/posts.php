@@ -13,6 +13,7 @@ $id_usuario = $_SESSION['id_usuario'] ?? null;
     <div class="row justify-content-center">
         <?php foreach ($posts as $post) cardPost(
             $post['id_post'], 
+            $post['id_usuario'],
             $post['nickname'], 
             $post['conteudo'], 
             $post['data_postagem'], 
