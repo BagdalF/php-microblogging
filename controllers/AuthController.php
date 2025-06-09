@@ -25,12 +25,18 @@ class AuthController {
             $nickname = $_POST['nickname'] ?? null;
             $email = $_POST['email'] ?? null;
             $bio = $_POST['bio'] ?? '';
+            $tipo = $_POST['tipo'] ?? null;
 
             $senha = $_POST['senha'] ?? null;
             $confirmarSenha = $_POST['confirmar_senha'] ?? null;
 
-            if (!is_null($senha) && !is_null($confirmarSenha) && $senha === $confirmarSenha) {
-                Usuario::editarSenhaUsuario($idUsuario, $senha);
+            if (!is_null($senha) && !is_null($confirmarSenha)) {
+                if ($senha === $confirmarSenha) {
+                    Usuario::editarSenhaUsuario($idUsuario, $senha);
+                } else {
+                    header("Location: /php-twitter/usuario/editar/$idUsuario");
+                    exit;
+                }
             }
 
             if (is_null($nickname) || is_null($email)) {
@@ -38,7 +44,7 @@ class AuthController {
                 exit;
             } 
 
-            Usuario::editarUsuario($idUsuario, $nickname, $email, $bio);
+            Usuario::editarUsuario($idUsuario, $nickname, $email, $bio, $tipo ?? $usuario['tipo']);
             
             if  ($idUsuario == $_SESSION['id_usuario']) {
                 header('Location: /php-twitter/usuario');

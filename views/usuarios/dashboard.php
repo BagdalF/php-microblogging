@@ -15,7 +15,7 @@ include_once __DIR__ . '/../layout/header.php';
     <!-- Gerenciamento de Tópicos (Moderadores e Admins) -->
     <div class="d-flex">
         <?php if ($_SESSION['tipo'] === 'admin' || $_SESSION['tipo'] === 'moderador'): ?>
-        <div class="card mb-4 col-md-6">
+        <div class="card mb-4 <?= $_SESSION['tipo'] === 'admin' ? "col-md-6" : "col-md-12" ?>">
             <div class="card-header bg-primary text-white">
                 Gerenciar Tópicos
             </div>
@@ -82,7 +82,8 @@ include_once __DIR__ . '/../layout/header.php';
                             <td>
                                 <a href="/php-twitter/usuario/editar/<?= $u['id_usuario'] ?>"
                                     class="btn btn-sm btn-warning">Editar</a>
-                                <a href="/php-twitter/usuario/banir/<?= $u['id_usuario'] ?>" class="btn btn-sm btn-danger"
+                                <a href="/php-twitter/usuario/banir/<?= $u['id_usuario'] ?>"
+                                    class="btn btn-sm btn-danger"
                                     onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir</a>
                             </td>
                         </tr>
