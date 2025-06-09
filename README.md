@@ -20,9 +20,7 @@ O objetivo é oferecer um **mini sistema de microblogging**, ideal para fins edu
 
 ## 🧰 Tecnologias e Ferramentas Utilizadas
 
-- **PHP** (puro, sem frameworks)
-- **HTML5 e CSS3** (estrutura e estilo das páginas)
-- **Servidor Local**: XAMPP (ou similar, como WAMP ou MAMP)
+- **PHP** (100% php, sem frameworks)
 - **Armazenamento em Arquivo**: Tweets são armazenados em arrays dentro do arquivo `data/items.php` (sem uso de banco de dados neste projeto)
 - **Estrutura Modular com Includes**: Uso de `include` e `require` para separar layout, funções e dados
 - **Funções Reutilizáveis**: Localizadas em `functions/helpers.php` para organizar a lógica
