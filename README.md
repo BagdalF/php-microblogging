@@ -7,7 +7,7 @@ Este projeto é uma aplicação web desenvolvida com **PHP** que simula algumas 
 O objetivo é oferecer um **mini sistema de microblogging**, ideal para fins educacionais, estudos de programação em PHP e prática de lógica de programação com foco em back-end web.
 
 ---
-## 👥 Integrantes da Dupla
+## 🤝 Integrantes da Equipe
 
 - Felipe Oliveira Bagdal - [BagdalF](https://github.com/BagdalF)
 - Vinicius Marçal - [Vini-devs](https://github.com/Vini-devs)
