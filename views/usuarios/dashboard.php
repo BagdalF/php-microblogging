@@ -34,7 +34,9 @@ include_once __DIR__ . '/../layout/header.php';
                         <?php foreach ($topicos as $topico): ?>
                         <tr>
                             <td><?= htmlspecialchars($topico['id_topico']) ?></td>
-                            <td><?= htmlspecialchars($topico['nome']) ?></td>
+                            <td><a class="text-decoration-none"
+                                    href="/php-twitter/topico/<?= $topico['id_topico'] ?>"><?= htmlspecialchars($topico['nome']) ?></a>
+                            </td>
                             <td><?= count($posts[$topico['id_topico']] ?? []) ?></td>
                             <td>
                                 <a href="/php-twitter/topicos/editar/<?= $topico['id_topico'] ?>"
@@ -76,7 +78,9 @@ include_once __DIR__ . '/../layout/header.php';
                         <?php foreach ($usuarios as $u): ?>
                         <tr>
                             <td><?= htmlspecialchars($u['id_usuario']) ?></td>
-                            <td><?= htmlspecialchars($u['nickname']) ?></td>
+                            <td><a class="text-decoration-none"
+                                    href="/php-twitter/usuario/<?= $u['id_usuario'] ?>"><?= htmlspecialchars($u['nickname']) ?></a>
+                            </td>
                             <td><?= htmlspecialchars($u['email']) ?></td>
                             <td><?= ucfirst($u['tipo']) ?></td>
                             <td>
