@@ -3,37 +3,39 @@ require_once __DIR__ . '/../services/banco.php';
 require_once __DIR__ . '/../services/session.php';
 
 class Usuario {
-    public static function encontrarUsuarios() {
+        public static function encontrarUsuarios() {
         $banco = Banco::getConn();
-        $stmt = $banco->query("SELECT id_usuario, tipo, nickname, email, bio FROM usuario 
-            ORDER BY id_usuario DESC");
+        $stmt = $banco->prepare("SELECT id_usuario, tipo, nickname, email, bio FROM usuario ORDER BY id_usuario DESC");
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function encontrarUsuario($idUsuario) {
         $banco = Banco::getConn();
-        $stmt = $banco->query("SELECT id_usuario, tipo, nickname, email, bio FROM usuario 
-            WHERE id_usuario='$idUsuario'");
+        $stmt = $banco->prepare("SELECT id_usuario, tipo, nickname, email, bio FROM usuario WHERE id_usuario = :id_usuario");
+        $stmt->execute([':id_usuario' => $idUsuario]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public static function encontrarUsuarioPorNickname($nickname) {
         $banco = Banco::getConn();
-        $stmt = $banco->query("SELECT id_usuario, tipo, nickname, email, bio FROM usuario 
-            WHERE nickname='$nickname'");
+        $stmt = $banco->prepare("SELECT id_usuario, tipo, nickname, email, bio FROM usuario WHERE nickname = :nickname");
+        $stmt->execute([':nickname' => $nickname]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function criarUsuario($tipo, $nickname, $email, $senha, $bio = '') {
+    public static function criarUsuario($tipo, $nickname, $email, $senha, $data_nascimento, $cpf, $bio = '' ) {
         $banco = Banco::getConn();
         $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-        $stmt = $banco->prepare("INSERT INTO usuario (tipo, nickname, email, senha, bio) VALUES (:tipo, :nickname, :email, :senha, :bio)");
+        $stmt = $banco->prepare("INSERT INTO usuario (tipo, nickname, email, senha, bio, data_nascimento, cpf) VALUES (:tipo, :nickname, :email, :senha, :bio, :data_nascimento, :cpf)");
         return $stmt->execute([
             ':tipo' => $tipo,
             ':nickname' => $nickname,
             ':email' => $email,
             ':senha' => $senha_hash,
-            ':bio' => $bio
+            ':bio' => $bio,
+            ':data_nascimento' => $data_nascimento,
+            ':cpf' => $cpf
         ]);
     }
 
@@ -44,6 +46,15 @@ class Usuario {
             ':nickname' => $nickname,
             ':email' => $email,
             ':bio' => $bio,
+            ':id_usuario' => $idUsuario
+        ]);
+    }
+
+    public static function editarSenhaUsuario($idUsuario, $novaSenha) {
+        $banco = Banco::getConn();
+        $stmt = $banco->prepare("UPDATE usuario SET senha = :senha WHERE id_usuario = :id_usuario");
+        return $stmt->execute([
+            ':senha' => password_hash($novaSenha, PASSWORD_DEFAULT),
             ':id_usuario' => $idUsuario
         ]);
     }
@@ -68,10 +79,17 @@ class Usuario {
                 $_SESSION['nickname'] = $resp['nickname'] ?? null;
                 $_SESSION['tipo'] = $resp['tipo'] ?? null;
                 return true;
-            } else  {
-                var_dump("Senha incorreta");
             }
         }
         return false;
+    }
+
+    public static function verificarRecuperarSenha($data_nascimento, $cpf) {
+        $banco = Banco::getConn();
+        $stmt = $banco->prepare("SELECT * FROM usuario WHERE data_nascimento = :data_nascimento AND cpf = :cpf LIMIT 1");
+        $stmt->bindParam(':data_nascimento', $data_nascimento);
+        $stmt->bindParam(':cpf', $cpf);
+        $stmt->execute();
+        return $stmt->fetch();
     }
 }

@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../services/session.php';
 
 require_once __DIR__ . '/../models/Post.php';
+require_once __DIR__ . '/../models/Topico.php';
 
 class PostController {
     public static function index() {
@@ -11,11 +12,41 @@ class PostController {
     }
 
     public static function explorar() {
-        
+        $topicos = Topico::encontrarTopicos();
+        $idTopico = $_GET['topico'] ?? null;
+        $posts = [];
+        $topicoAtual = null;
+
+        if ($idTopico) {
+            $posts = Topico::encontrarPostsPorTopico($idTopico);
+            foreach ($topicos as $t) {
+                if ($t['id_topico'] == $idTopico) {
+                    $topicoAtual = $t;
+                    break;
+                }
+            }
+        }
+
+        include __DIR__ . '/../views/posts/explorar.php';
     }
 
     public static function pesquisar() {
-        
+        $busca = $_GET['q'] ?? '';
+        $posts = [];
+        $usuarios = [];
+        if ($busca) {
+            $banco = Banco::getConn();
+            // Busca posts
+            $stmt = $banco->prepare("SELECT post.*, usuario.nickname FROM post INNER JOIN usuario ON post.id_usuario = usuario.id_usuario WHERE post.conteudo LIKE :busca ORDER BY data_postagem DESC");
+            $stmt->execute([':busca' => "%$busca%"]);
+            $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            // Busca usuários
+            $stmt2 = $banco->prepare("SELECT id_usuario, nickname, bio FROM usuario WHERE nickname LIKE :busca OR bio LIKE :busca");
+            $stmt2->execute([':busca' => "%$busca%"]);
+            $usuarios = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+}
+
+        include __DIR__ . '/../views/posts/pesquisar.php';
     }
 
     public static function encontrarPost() {
@@ -65,5 +96,15 @@ class PostController {
         Post::apagarPost($idPost);
 
         header('Location: /php-twitter/');
+    }
+
+    public static function likePost($idPost) {
+        $idUsuario = $_SESSION['id_usuario'] ?? null;
+
+        if ($idPost && $idUsuario) {
+            Post::likePost($idPost, $idUsuario);
+        }
+
+        header('Location: /php-twitter/post/' . $idPost);
     }
 }

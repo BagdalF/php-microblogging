@@ -1,7 +1,7 @@
 <?php
 function cardPost($id_post, $nickname, $conteudo, $data_postagem, $anexo, $likes, $isLoggedUser = false) { ?>
 <div class="col-md-8 mb-4">
-    <div class="card border-1 border-light-subtle rounded-4 shadow-sm bg-white">
+    <div class="card border-1 border-light-subtle rounded-4 shadow-sm <?= $_SESSION['bgLayout'] ?? 'bg-white' ?>">
         <div class="card-body d-flex flex-column">
             <div class="d-flex align-items-center mb-2">
                 <i class="bi bi-person-circle text-secondary me-2" style="font-size:1.5rem;"></i>
@@ -41,7 +41,9 @@ function cardPost($id_post, $nickname, $conteudo, $data_postagem, $anexo, $likes
                     <a href="/php-twitter/resposta/criar/<?php echo $id_post; ?>"
                         class="btn btn-light rounded-pill py-0 px-3"><i class="bi bi-chat me-1"></i> Responder</a>
                     <?php endif; ?>
-                    <span class="text-muted small"><i class="bi bi-heart me-1"></i> <?php echo (int)$likes; ?></span>
+                    <a href="/php-twitter/post/like/<?php echo $id_post; ?>"
+                        class="text-muted small text-decoration-none like-hover"><i class="bi bi-heart me-1"></i>
+                        <?php echo (int)$likes; ?></a>
                 </span>
             </div>
         </div>
@@ -84,9 +86,18 @@ function cardPost($id_post, $nickname, $conteudo, $data_postagem, $anexo, $likes
             <div class="d-flex justify-content-between align-items-center mt-2">
                 <span class="text-muted small"><i class="bi bi-clock me-1"></i>
                     <?php echo date('d/m/Y H:i:s', strtotime($data_postagem)); ?></span>
-                <span class="text-muted small"><i class="bi bi-heart me-1"></i> <?php echo (int)$likes; ?></span>
+                <a href="/php-twitter/resposta/like/<?php echo $id_post; ?>"
+                    class="text-muted small text-decoration-none like-hover"><i class="bi bi-heart me-1"></i>
+                    <?php echo (int)$likes; ?></a>
             </div>
         </div>
     </div>
 </div>
 <?php }?>
+
+<style>
+.like-hover:hover {
+    color: #e83e8c !important;
+    transition: color 0.1s ease;
+}
+</style>

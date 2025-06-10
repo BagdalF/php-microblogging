@@ -19,9 +19,15 @@ include __DIR__ . '/../layout/header.php';
             <label for="senha" class="form-label">Senha:</label>
             <input type="password" id="senha" name="senha" class="form-control rounded-pill" required>
         </div>
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between align-items-center">
             <button type="submit" class="btn btn-primary rounded-pill">Entrar</button>
+            <a href="/php-twitter/recuperar-senha" class="small text-muted">Esqueceu a Senha?</a>
             <a href="/php-twitter/cadastro" class="btn btn-outline-primary rounded-pill">Crie sua Conta</a>
+        </div>
+        <div class="bg-warning p-3 rounded-pill mt-4 text-center">
+            Houve um vazamento no sistema! Todas as senhas são: senha123.
+            <br>
+            Por favor não acessar a conta do admin1@email.com
         </div>
     </form>
 </div>
