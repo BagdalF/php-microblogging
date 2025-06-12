@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2025 at 04:42 PM
+-- Generation Time: Jun 12, 2025 at 03:12 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -62,7 +62,7 @@ CREATE TABLE `post_resposta` (
   `id_usuario` int(11) NOT NULL,
   `conteudo` varchar(255) NOT NULL,
   `data_postagem` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `anexo` varchar(50) NOT NULL,
+  `anexo` varchar(50) DEFAULT NULL,
   `likes` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -100,8 +100,10 @@ CREATE TABLE `usuario` (
   `tipo` enum('normal','moderador','admin') NOT NULL DEFAULT 'normal',
   `nickname` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `senha` varchar(30) NOT NULL,
-  `bio` varchar(255) NOT NULL DEFAULT ''
+  `senha` varchar(100) NOT NULL,
+  `bio` varchar(255) NOT NULL DEFAULT '',
+  `data_nascimento` date DEFAULT NULL,
+  `cpf` varchar(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --

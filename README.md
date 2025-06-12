@@ -2,11 +2,12 @@
 
 ## 🐦 Visão Geral do Projeto
 
-Este projeto é uma aplicação web desenvolvida com **PHP** que simula algumas funcionalidades básicas do **Twitter**. A aplicação permite visualizar uma timeline de tweets, acessar detalhes de cada tweet, filtrar por tópicos e gerenciar tweets a partir de uma área restrita para usuários autenticados.
+Este projeto é uma aplicação web desenvolvida com **PHP** que simula funcionalidades essenciais do **Twitter**. Permite visualizar uma timeline de tweets, explorar tópicos, pesquisar posts e usuários, enviar mensagens privadas (DM), responder posts, curtir, editar e excluir conteúdos, além de contar com autenticação e hierarquia de usuários (normal, moderador, admin).
 
-O objetivo é oferecer um **mini sistema de microblogging**, ideal para fins educacionais, estudos de programação em PHP e prática de lógica de programação com foco em back-end web.
+Ideal para fins educacionais, prática de lógica de programação e estudos de back-end web.
 
 ---
+
 ## 🤝 Integrantes da Equipe
 
 - Felipe Oliveira Bagdal - [BagdalF](https://github.com/BagdalF)
@@ -16,41 +17,85 @@ O objetivo é oferecer um **mini sistema de microblogging**, ideal para fins edu
 
 ## 🚀 Funcionalidades
 
-- **📰 Timeline de Tweets**: Exibe uma lista de tweets com imagem, título e tópico.
-- **🔍 Detalhes do Tweet**: Cada tweet possui uma página dedicada com informações detalhadas.
-- **🏷️ Filtro por Tópico**: Os usuários podem filtrar os tweets por tópico através da página `pesquisar.php`.
-- **🔐 Autenticação de Usuário**: Login simples via `login.php`, protegendo o acesso a áreas restritas.
-- **🛠️ Área Protegida**: Usuários logados podem **criar tweets** e visualizar os tweets cadastrados em `protected.php`.
+- **📰 Timeline de Tweets**: Exibe uma lista de tweets com imagem, autor e data.
+- **🔍 Pesquisa**: Busca posts e usuários por palavra-chave.
+- **🏷️ Explorar Tópicos**: Mosaico de tópicos para filtrar posts.
+- **💬 Respostas**: Responda a posts e visualize conversas.
+- **❤️ Curtidas**: Curta posts e respostas.
+- **📩 Mensagens Privadas (DM)**: Envie e gerencie mensagens diretas entre usuários.
+- **🔐 Autenticação**: Login, cadastro, recuperação de senha e logout.
+- **🛠️ Hierarquia de Usuários**: Usuários normais, moderadores (gerenciam tópicos) e admins (gerenciam tudo).
+- **⚙️ Preferências**: Troca de tema claro/escuro com persistência via cookie.
 
 ---
 
 ## 🧰 Tecnologias e Ferramentas Utilizadas
 
-- **PHP** (100% php, sem frameworks)
-- **Armazenamento em Arquivo**: Tweets são armazenados em arrays dentro do arquivo `data/items.php` (sem uso de banco de dados neste projeto)
-- **Estrutura Modular com Includes**: Uso de `include` e `require` para separar layout, funções e dados
-- **Funções Reutilizáveis**: Localizadas em `functions/helpers.php` para organizar a lógica
+- **PHP** (puro, sem frameworks)
+- **Bootstrap 5** (CDN)
+- **Bootstrap Icons**
+- **MariaDB/MySQL (phpMyAdmin)**
 
 ---
 
 ## 📁 Estrutura de Arquivos
 
 ```
-php-twitter-clone
+php-twitter
+├── controllers
+│   ├── AuthController.php
+│   ├── PostController.php
+│   ├── RespostaController.php
+│   ├── MensagemController.php
+│   └── TopicoController.php
 ├── data
-│ └── items.php # Tweets simulados em array associativo
-├── layout
-│ ├── header.php # Cabeçalho comum
-│ └── footer.php # Rodapé comum
+│   ├── twitter_vazio.sql
+│   └── twitter_populado.sql
 ├── functions
-│ └── helpers.php # Funções auxiliares reutilizáveis
-├── index.php # Página principal com timeline
-├── detalhes.php # Página de detalhes de um tweet
-├── pesquisar.php # Filtro de tweets por tópico
-├── login.php # Tela de login
-├── protected.php # Área restrita para gerenciar tweets
-├── README.md # Este arquivo :)
-└── .gitignore
+│   ├── helpers.php
+│   └── hashtag.php
+├── models
+│   ├── Usuario.php
+│   ├── Post.php
+│   ├── Resposta.php
+│   ├── Mensagem.php
+│   └── Topico.php
+├── services
+│   ├── banco.php
+│   └── session.php
+├── views
+│   ├── layout
+│   │   ├── header.php
+│   │   ├── footer.php
+│   │   ├── cards.php
+│   │   └── dm.php
+│   ├── mensagens
+│   │   ├── mensagens.php
+│   │   └── editar-mensagem.php
+│   ├── posts
+│   │   ├── posts.php
+│   │   ├── criar-post.php
+│   │   ├── editar-post.php
+│   │   ├── explorar.php
+│   │   └── pesquisar.php
+│   ├── respostas
+│   │   ├── respostas.php
+│   │   ├── criar-resposta.php
+│   │   └── editar-resposta.php
+│   ├── topicos
+│   │   ├── criar-topico.php
+│   │   └── editar-topico.php
+│   └── usuarios
+│       ├── usuario.php
+│       ├── editar-usuario.php
+│       ├── cadastro.php
+│       ├── login.php
+│       ├── recuperar-senha.php
+│       └── dashboard.php
+├── .htaccess
+├── .gitignore
+├── index.php
+└── README.md
 ```
 
 ---
@@ -60,5 +105,14 @@ php-twitter-clone
 1. **Clone este repositório** ou baixe os arquivos para sua máquina local.
 2. **Instale um servidor local** (recomendado: [XAMPP](https://www.apachefriends.org/)).
 3. **Copie a pasta do projeto** para o diretório raiz do servidor local (`htdocs` no XAMPP).
-4. **Inicie o Apache** (e o MySQL, se desejar usá-lo no futuro).
-5. **Acesse a aplicação** no navegador: http://localhost/php-twitter-clone/index.php
+4. **Crie o banco de dados** e importe o arquivo `data/twitter_vazio.sql` ou `data/twitter_populado.sql` via phpMyAdmin.
+5. **Configure o acesso ao banco** em `services/banco.php` se necessário.
+6. **Inicie o Apache e o MySQL**.
+7. **Acesse a aplicação** no navegador: http://localhost/php-twitter/
+
+---
+
+## ℹ️ Observações
+
+- Senha padrão para todos os usuários: `senha123` (para testes), recomendamos utilizar a conta de email fictícia "admin1@email.com" para o login.
+- O sistema é apenas para fins didáticos e não deve ser usado em produção sem adaptações de segurança.
