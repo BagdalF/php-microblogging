@@ -39,6 +39,13 @@ class AuthController {
                 }
             }
 
+            $senha = $_POST['senha'] ?? null;
+            $confirmarSenha = $_POST['confirmar_senha'] ?? null;
+
+            if (!is_null($senha) && !is_null($confirmarSenha) && $senha === $confirmarSenha) {
+                Usuario::editarSenhaUsuario($idUsuario, $senha);
+            }
+
             if (is_null($nickname) || is_null($email)) {
                 header("Location: /php-twitter/usuario/editar/$idUsuario");
                 exit;

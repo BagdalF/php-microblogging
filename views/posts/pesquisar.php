@@ -1,3 +1,4 @@
+
 <?php
 include __DIR__ . '/../../views/layout/header.php';
 include __DIR__ . '/../../views/layout/cards.php';
@@ -6,7 +7,7 @@ $busca = $busca ?? '';
 $usuarios = $usuarios ?? [];
 $posts = $posts ?? [];
 ?>
-
+             
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -31,7 +32,6 @@ $posts = $posts ?? [];
             </div>
         </div>
     </div>
-
     <?php if (!empty($busca)): ?>
         <div class="row justify-content-center mb-4">
             <div class="col-md-8">

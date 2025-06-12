@@ -60,6 +60,15 @@ class Usuario {
         ]);
     }
 
+    public static function editarSenhaUsuario($idUsuario, $novaSenha) {
+        $banco = Banco::getConn();
+        $stmt = $banco->prepare("UPDATE usuario SET senha = :senha WHERE id_usuario = :id_usuario");
+        return $stmt->execute([
+            ':senha' => password_hash($novaSenha, PASSWORD_DEFAULT),
+            ':id_usuario' => $idUsuario
+        ]);
+    }
+
     public static function banirUsuario($idUsuario) {
         $banco = Banco::getConn();
         $stmt = $banco->prepare("DELETE FROM usuario WHERE id_usuario = :id_usuario");
