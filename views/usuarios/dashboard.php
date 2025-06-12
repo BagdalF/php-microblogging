@@ -15,7 +15,7 @@ include_once __DIR__ . '/../layout/header.php';
     <!-- Gerenciamento de Tópicos (Moderadores e Admins) -->
     <div class="d-flex">
         <?php if ($_SESSION['tipo'] === 'admin' || $_SESSION['tipo'] === 'moderador'): ?>
-        <div class="card mb-4 col-md-6">
+        <div class="card mb-4 <?= $_SESSION['tipo'] === 'admin' ? "col-md-6" : "col-md-12" ?>">
             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                 <span>Gerenciar Tópicos</span>
                 <a href="/php-twitter/topico/criar" class="btn btn-sm btn-light">Novo</a>
@@ -35,7 +35,9 @@ include_once __DIR__ . '/../layout/header.php';
                         <?php foreach ($topicos as $topico): ?>
                         <tr>
                             <td><?= htmlspecialchars($topico['id_topico']) ?></td>
-                            <td><?= htmlspecialchars($topico['nome']) ?></td>
+                            <td><a class="text-decoration-none"
+                                    href="/php-twitter/topico/<?= $topico['id_topico'] ?>"><?= htmlspecialchars($topico['nome']) ?></a>
+                            </td>
                             <td><?= count($posts[$topico['id_topico']] ?? []) ?></td>
                             <td>
                                 <a href="/php-twitter/topico/editar/<?= $topico['id_topico'] ?>"
@@ -77,13 +79,16 @@ include_once __DIR__ . '/../layout/header.php';
                         <?php foreach ($usuarios as $u): ?>
                         <tr>
                             <td><?= htmlspecialchars($u['id_usuario']) ?></td>
-                            <td><?= htmlspecialchars($u['nickname']) ?></td>
+                            <td><a class="text-decoration-none"
+                                    href="/php-twitter/usuario/<?= $u['id_usuario'] ?>"><?= htmlspecialchars($u['nickname']) ?></a>
+                            </td>
                             <td><?= htmlspecialchars($u['email']) ?></td>
                             <td><?= ucfirst($u['tipo']) ?></td>
                             <td>
                                 <a href="/php-twitter/usuario/editar/<?= $u['id_usuario'] ?>"
                                     class="btn btn-sm btn-warning">Editar</a>
-                                <a href="/php-twitter/usuario/banir/<?= $u['id_usuario'] ?>" class="btn btn-sm btn-danger"
+                                <a href="/php-twitter/usuario/banir/<?= $u['id_usuario'] ?>"
+                                    class="btn btn-sm btn-danger"
                                     onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir</a>
                             </td>
                         </tr>

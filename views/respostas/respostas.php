@@ -9,6 +9,7 @@ require_once __DIR__ . '/../layout/cards.php';
         <?php if (isset($post)): ?>
         <?php cardPost(
             $post['id_post'], 
+            $post['id_usuario'],
             $post['nickname'], 
             $post['conteudo'], 
             $post['data_postagem'], 

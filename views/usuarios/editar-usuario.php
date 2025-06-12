@@ -41,6 +41,22 @@ include __DIR__ . '/../layout/header.php';
                             <textarea id="bio" name="bio" class="form-control rounded-3" rows="4"
                                 placeholder="Escreva algo sobre você..."><?php echo htmlspecialchars($usuario['bio'], ENT_QUOTES, 'UTF-8'); ?></textarea>
                         </div>
+
+                        <?php if ($_SESSION['tipo'] === 'admin') { ?>
+                        <div class="mb-3">
+                            <label for="tipo" class="form-label">Tipo de Usuário:</label>
+                            <select id="tipo" name="tipo" class="form-select rounded-pill">
+                                <option value="normal" <?php echo $usuario['tipo'] === 'normal' ? 'selected' : ''; ?>>
+                                    Normal</option>
+                                <option value="admin" <?php echo $usuario['tipo'] === 'admin' ? 'selected' : ''; ?>>
+                                    Admin</option>
+                                <option value="moderador"
+                                    <?php echo $usuario['tipo'] === 'moderador' ? 'selected' : ''; ?>>
+                                    Moderador</option>
+                            </select>
+                        </div>
+                        <?php } ?>
+
                         <div class="d-flex justify-content-between align-items-center mt-4">
                             <a href="/php-twitter/dashboard" class="btn btn-link text-decoration-none">Cancelar</a>
                             <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 fw-bold">Salvar</button>

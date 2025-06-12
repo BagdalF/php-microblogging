@@ -16,7 +16,7 @@ if (!isset($_SESSION['id_usuario'])
 function checarTipoUsuario($tiposAutorizados) {
     $tipos = is_array($tiposAutorizados) ? $tiposAutorizados : [$tiposAutorizados];
     if (!isset($_SESSION['tipo']) || !in_array($_SESSION['tipo'], $tipos)) {
-        header('Location: /php-twitter/dashboard');
+        header('Location: /php-twitter/');
         return false;
     }
     return true;

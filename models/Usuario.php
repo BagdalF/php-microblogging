@@ -39,13 +39,23 @@ class Usuario {
         ]);
     }
 
-    public static function editarUsuario($idUsuario, $nickname, $email, $bio) {
+    public static function editarUsuario($idUsuario, $nickname, $email, $bio, $tipo) {
         $banco = Banco::getConn();
-        $stmt = $banco->prepare("UPDATE usuario SET nickname = :nickname, email = :email, bio = :bio WHERE id_usuario = :id_usuario");
+        $stmt = $banco->prepare("UPDATE usuario SET nickname = :nickname, email = :email, bio = :bio, tipo = :tipo WHERE id_usuario = :id_usuario");
         return $stmt->execute([
             ':nickname' => $nickname,
             ':email' => $email,
             ':bio' => $bio,
+            ':tipo' => $tipo,
+            ':id_usuario' => $idUsuario
+        ]);
+    }
+
+    public static function editarSenhaUsuario($idUsuario, $novaSenha) {
+        $banco = Banco::getConn();
+        $stmt = $banco->prepare("UPDATE usuario SET senha = :senha WHERE id_usuario = :id_usuario");
+        return $stmt->execute([
+            ':senha' => password_hash($novaSenha, PASSWORD_DEFAULT),
             ':id_usuario' => $idUsuario
         ]);
     }

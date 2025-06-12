@@ -38,6 +38,7 @@ include __DIR__ . '/../layout/cards.php';
                     <div class="mb-3 d-flex flex-column align-items-center justify-content-center">
                         <?php foreach ($posts as $post) cardPost(
                             $post['id_post'], 
+                            $post['id_usuario'],
                             $post['nickname'], 
                             $post['conteudo'], 
                             $post['data_postagem'], 

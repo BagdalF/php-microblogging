@@ -1,12 +1,12 @@
 <?php
-function cardPost($id_post, $nickname, $conteudo, $data_postagem, $anexo, $likes, $isLoggedUser = false) { ?>
+function cardPost($id_post, $id_usuario, $nickname, $conteudo, $data_postagem, $anexo, $likes, $isLoggedUser = false) { ?>
 <div class="col-md-8 mb-4">
     <div class="card border-1 border-light-subtle rounded-4 shadow-sm <?= $_SESSION['bgLayout'] ?? 'bg-white' ?>">
         <div class="card-body d-flex flex-column">
             <div class="d-flex align-items-center mb-2">
                 <i class="bi bi-person-circle text-secondary me-2" style="font-size:1.5rem;"></i>
-                <span
-                    class="fw-bold text-primary">@<?php echo strtolower(str_replace(' ', '', escape($nickname))); ?></span>
+                <a href="/php-twitter/usuario/<?php echo $id_usuario; ?>"
+                    class="fw-bold text-primary text-decoration-none">@<?php echo strtolower(str_replace(' ', '', escape($nickname))); ?></a>
                 <?php if ($isLoggedUser): ?>
                 <div class="ms-auto dropdown">
                     <button class="btn btn-light btn-sm rounded-circle" type="button"
@@ -57,8 +57,8 @@ function cardPost($id_post, $nickname, $conteudo, $data_postagem, $anexo, $likes
         <div class="card-body d-flex flex-column">
             <div class="d-flex align-items-center mb-2">
                 <i class="bi bi-person-circle text-secondary me-2" style="font-size:1.3rem;"></i>
-                <span
-                    class="fw-bold text-primary small">@<?php echo strtolower(str_replace(' ', '', escape($nickname ?? 'usuario'))); ?></span>
+                <a href="/php-twitter/usuario/<?php echo $id_usuario; ?>"
+                    class="fw-bold text-primary small text-decoration-none">@<?php echo strtolower(str_replace(' ', '', escape($nickname ?? 'usuario'))); ?></a>
                 <?php if ($isLoggedUser): ?>
                 <div class="ms-auto dropdown">
                     <button class="btn btn-light btn-sm rounded-circle" type="button"
