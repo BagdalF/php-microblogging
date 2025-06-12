@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2025 at 03:30 AM
+-- Generation Time: Jun 12, 2025 at 03:10 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -170,12 +170,19 @@ INSERT INTO `post_topico` (`id_post_topico`, `id_post`, `id_topico`) VALUES
 (1, 1, 1),
 (2, 2, 2),
 (3, 3, 3),
-(4, 4, 4),
-(5, 5, 5),
-(6, 6, 6),
-(7, 7, 7),
-(8, 8, 8),
-(9, 9, 9);
+(4, 6, 4),
+(5, 7, 5),
+(7, 8, 7),
+(8, 9, 8),
+(9, 10, 9),
+(10, 4, 1),
+(11, 5, 3),
+(12, 12, 4),
+(13, 13, 1),
+(14, 16, 7),
+(15, 17, 8),
+(16, 18, 3),
+(17, 21, 4);
 
 -- --------------------------------------------------------
 
@@ -315,7 +322,7 @@ ALTER TABLE `post_resposta`
 -- AUTO_INCREMENT for table `post_topico`
 --
 ALTER TABLE `post_topico`
-  MODIFY `id_post_topico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_post_topico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `topico`
